@@ -17,7 +17,7 @@ public class TipoTelefone {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@Column(unique=true, nullable=false)
+	@Column(unique=true)
 	@NotNull
 	@Size(min = 3, max = 50)
 	private String nome;
