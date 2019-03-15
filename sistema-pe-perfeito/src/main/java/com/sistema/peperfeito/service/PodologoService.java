@@ -17,7 +17,11 @@ public class PodologoService {
 	public Podologo atualizar(Long codigo, Podologo podologo) {
 		Podologo podologoSalvo = buscarPodologoPeloCodigo(codigo);
 		
-		BeanUtils.copyProperties(podologo, podologoSalvo, "codigo");
+		podologoSalvo.getTelefones().clear();
+		podologoSalvo.getTelefones().addAll(podologo.getTelefones());
+		podologoSalvo.getTelefones().forEach(c -> c.setPodologo(podologoSalvo));
+		
+		BeanUtils.copyProperties(podologo, podologoSalvo, "codigo", "telefones");
 		return podologoRepository.save(podologoSalvo);
 	}
 	
@@ -27,6 +31,11 @@ public class PodologoService {
 			throw new EmptyResultDataAccessException(1);
 		}
 		return pessoaSalva;
+	}
+
+	public Podologo salvar(Podologo podologo) {
+		podologo.getTelefones().forEach(c -> c.setPodologo(podologo));
+		return podologoRepository.save(podologo);
 	}
 	
 }

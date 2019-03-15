@@ -1,16 +1,25 @@
 package com.sistema.peperfeito.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "podologo")
@@ -22,6 +31,10 @@ public class Podologo {
 
 	private String nome;
 	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private Sexo sexo;
+	
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
 	
@@ -30,6 +43,11 @@ public class Podologo {
 	
 	@Embedded
 	private EnderecoPodologo endereco;
+	
+	@Valid
+	@JsonIgnoreProperties("podologo")
+	@OneToMany(mappedBy = "podologo", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TelefonePodologo> telefones;
 		
 	public Long getCodigo() {
 		return codigo;
@@ -69,6 +87,14 @@ public class Podologo {
 
 	public void setEndereco(EnderecoPodologo endereco) {
 		this.endereco = endereco;
+	}
+
+	public List<TelefonePodologo> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<TelefonePodologo> telefones) {
+		this.telefones = telefones;
 	}
 
 	@Override

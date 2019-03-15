@@ -45,7 +45,7 @@ public class PodologoResource {
 		
 	@PostMapping
 	public ResponseEntity<Podologo> criar(@Valid @RequestBody Podologo podologo, HttpServletResponse response) {
-		Podologo podologoSalvo = podologoRepository.save(podologo);
+		Podologo podologoSalvo = podologoService.salvar(podologo);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, podologoSalvo.getCodigo()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(podologoSalvo);
 	}
