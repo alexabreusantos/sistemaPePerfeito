@@ -26,11 +26,11 @@ public class PodologoService {
 	}
 	
 	private Podologo buscarPodologoPeloCodigo(Long codigo) {
-		Podologo pessoaSalva = podologoRepository.findOne(codigo);
-		if (pessoaSalva == null) {
+		Podologo podologoSalvo = podologoRepository.findOne(codigo);
+		if (podologoSalvo == null) {
 			throw new EmptyResultDataAccessException(1);
 		}
-		return pessoaSalva;
+		return podologoSalvo;
 	}
 
 	public Podologo salvar(Podologo podologo) {

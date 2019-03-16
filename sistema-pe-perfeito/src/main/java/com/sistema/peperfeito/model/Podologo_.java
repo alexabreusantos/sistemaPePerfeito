@@ -11,7 +11,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class Podologo_ {
 
 	public static volatile SingularAttribute<Podologo, Long> codigo;
-	public static volatile SingularAttribute<Podologo, EnderecoPodologo> endereco;
+	public static volatile SingularAttribute<Podologo, Endereco> endereco;
 	public static volatile SingularAttribute<Podologo, String> nome;
 	public static volatile SingularAttribute<Podologo, Sexo> sexo;
 	public static volatile SingularAttribute<Podologo, LocalDate> dataNascimento;

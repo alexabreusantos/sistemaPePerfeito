@@ -3,7 +3,7 @@ package com.sistema.peperfeito.model;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class EnderecoPodologo {
+public class Endereco {
 
 	private String logradouro;
 	private String numero;

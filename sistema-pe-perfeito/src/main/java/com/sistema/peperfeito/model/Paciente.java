@@ -22,15 +22,16 @@ import org.hibernate.validator.constraints.Email;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "podologo")
-public class Podologo {
+@Table(name = "paciente")
+public class Paciente {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-
+	
+	@NotNull
 	private String nome;
-		
+	
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
@@ -38,17 +39,18 @@ public class Podologo {
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
 	
-	@Email(message = "Email inválido")
+	@Email
+	@Column(unique = true)
 	private String email;
 	
 	@Embedded
 	private Endereco endereco;
 	
 	@Valid
-	@JsonIgnoreProperties("podologo")
-	@OneToMany(mappedBy = "podologo", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<TelefonePodologo> telefones;
-		
+	@JsonIgnoreProperties("paciente")
+	@OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TelefonePaciente> telefones;
+
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -64,7 +66,15 @@ public class Podologo {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
+	public Sexo getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
+	}
+
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
@@ -89,11 +99,11 @@ public class Podologo {
 		this.endereco = endereco;
 	}
 
-	public List<TelefonePodologo> getTelefones() {
+	public List<TelefonePaciente> getTelefones() {
 		return telefones;
 	}
 
-	public void setTelefones(List<TelefonePodologo> telefones) {
+	public void setTelefones(List<TelefonePaciente> telefones) {
 		this.telefones = telefones;
 	}
 
@@ -113,7 +123,7 @@ public class Podologo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Podologo other = (Podologo) obj;
+		Paciente other = (Paciente) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
@@ -121,5 +131,5 @@ public class Podologo {
 			return false;
 		return true;
 	}
-	
+			
 }
