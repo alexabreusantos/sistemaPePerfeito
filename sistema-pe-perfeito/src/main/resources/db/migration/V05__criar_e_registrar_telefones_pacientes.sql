@@ -3,7 +3,8 @@ CREATE TABLE telefone_paciente (
 	codigo_paciente BIGINT(20) NOT NULL,
 	numero VARCHAR(20) NOT NULL,
 	codigo_tipo_telefone BIGINT(20) NOT NULL,
-	UNIQUE KEY telefone_paciente_numero (numero),	
+	UNIQUE KEY telefone_paciente_numero (numero),
+	FOREIGN KEY (codigo_tipo_telefone) REFERENCES tipo_telefone(codigo),	
 	FOREIGN KEY (codigo_paciente) REFERENCES paciente(codigo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

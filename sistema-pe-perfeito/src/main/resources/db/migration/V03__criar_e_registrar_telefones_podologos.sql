@@ -3,7 +3,8 @@ CREATE TABLE telefone_podologo (
 	codigo_podologo BIGINT(20) NOT NULL,
 	numero VARCHAR(20) NOT NULL,
 	codigo_tipo_telefone BIGINT(20) NOT NULL,
-	UNIQUE KEY telefone_podologo_numero (numero),	
+	UNIQUE KEY telefone_podologo_numero (numero),
+	FOREIGN KEY (codigo_tipo_telefone) REFERENCES tipo_telefone(codigo),
 	FOREIGN KEY (codigo_podologo) REFERENCES podologo(codigo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

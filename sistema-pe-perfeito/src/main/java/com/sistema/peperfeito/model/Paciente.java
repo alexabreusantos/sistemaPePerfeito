@@ -35,7 +35,7 @@ public class Paciente {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
-	
+			
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
 	
@@ -66,7 +66,7 @@ public class Paciente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+	
 	public Sexo getSexo() {
 		return sexo;
 	}
@@ -74,7 +74,7 @@ public class Paciente {
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
-
+	
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
@@ -131,5 +131,5 @@ public class Paciente {
 			return false;
 		return true;
 	}
-			
+	
 }

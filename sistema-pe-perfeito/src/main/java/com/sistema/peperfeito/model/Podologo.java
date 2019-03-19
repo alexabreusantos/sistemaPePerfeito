@@ -28,17 +28,19 @@ public class Podologo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-
+	
+	@NotNull
 	private String nome;
-		
+	
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
-	
+			
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
 	
-	@Email(message = "Email inválido")
+	@Email
+	@Column(unique = true)
 	private String email;
 	
 	@Embedded
@@ -48,7 +50,7 @@ public class Podologo {
 	@JsonIgnoreProperties("podologo")
 	@OneToMany(mappedBy = "podologo", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<TelefonePodologo> telefones;
-		
+
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -63,6 +65,14 @@ public class Podologo {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public Sexo getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
 	}
 	
 	public LocalDate getDataNascimento() {
@@ -121,5 +131,6 @@ public class Podologo {
 			return false;
 		return true;
 	}
+
 	
 }

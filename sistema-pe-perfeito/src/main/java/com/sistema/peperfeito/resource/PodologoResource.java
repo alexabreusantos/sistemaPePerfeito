@@ -23,7 +23,6 @@ import com.sistema.peperfeito.event.RecursoCriadoEvent;
 import com.sistema.peperfeito.model.Podologo;
 import com.sistema.peperfeito.repository.PodologoRepository;
 import com.sistema.peperfeito.repository.filter.PodologoFilter;
-import com.sistema.peperfeito.repository.projection.ResumoPodologo;
 import com.sistema.peperfeito.service.PodologoService;
 
 @RestController
@@ -39,15 +38,15 @@ public class PodologoResource {
 	@Autowired
 	private ApplicationEventPublisher publisher;
 
-//	@GetMapping
-//	public Page<Podologo> pesquisar(PodologoFilter podologoFilter, Pageable pageable){
-//		return podologoRepository.filtrar(podologoFilter, pageable);
-//	}
-	
 	@GetMapping
-	public Page<ResumoPodologo> resumir(PodologoFilter podologoFilter, Pageable pageable){
-		return podologoRepository.resumir(podologoFilter, pageable);
+	public Page<Podologo> pesquisar(PodologoFilter podologoFilter, Pageable pageable){
+		return podologoRepository.filtrar(podologoFilter, pageable);
 	}
+	
+//	@GetMapping
+//	public Page<ResumoPodologo> resumir(PodologoFilter podologoFilter, Pageable pageable){
+//		return podologoRepository.resumir(podologoFilter, pageable);
+//	}
 		
 	@PostMapping
 	public ResponseEntity<Podologo> criar(@Valid @RequestBody Podologo podologo, HttpServletResponse response) {
