@@ -8,6 +8,7 @@ public class PacienteFilter {
 
 	private String nome;
 	private String email;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataNascimento;
 	
 	public String getNome() {
@@ -23,13 +24,10 @@ public class PacienteFilter {
 		this.email = email;
 	}
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
-	}
-	
-	
+	}	
 }
