@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,11 +46,13 @@ public class ConsultaResource {
 //	}
 	
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CONSULTA') and #oauth2.hasScope('read')")
 	public Page<ResumoConsulta> resumir(ConsultaFilter consultaFilter, Pageable pageable){
 		return consultaRepository.resumir(consultaFilter, pageable);
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_CONSULTA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Consulta> criar(@Valid @RequestBody Consulta consulta, HttpServletResponse response) {
 		Consulta consultaSalva = consultaService.salvar(consulta);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, consultaSalva.getCodigo()));
@@ -57,18 +60,21 @@ public class ConsultaResource {
 	}	
 
 	@GetMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CONSULTA') and #oauth2.hasScope('read')")
 	public ResponseEntity<Consulta> buscarPeloCodigo(@PathVariable Long codigo) {
 		Consulta consulta = consultaRepository.findOne(codigo);
 		return consulta != null ? ResponseEntity.ok(consulta) : ResponseEntity.notFound().build();
 	}
 	
 	@PutMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_CONSULTA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Consulta> atualizar(@PathVariable Long codigo, @Valid @RequestBody Consulta consulta) {
 		Consulta consultaSalva = consultaService.atualizar(codigo, consulta);
 		return ResponseEntity.ok(consultaSalva);
 	}	
 
 	@DeleteMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_REMOVER_CONSULTA') and #oauth2.hasScope('write')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
 		consultaRepository.delete(codigo);
